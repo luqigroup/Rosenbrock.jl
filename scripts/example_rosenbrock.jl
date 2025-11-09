@@ -1,11 +1,11 @@
 using DrWatson
-@quickactivate "Rosenbrock"
+@quickactivate :Rosenbrock
 
 using Rosenbrock
 using PyPlot
 
 # Set up parameters using DrWatson's @dict macro
-params = @dict μ=0.0f0 a=1.0f0 n_samples=5000
+params = @dict μ=0.0f0 a=1.0f0 n_samples=Int(5f4)
 
 # Create Rosenbrock distribution
 rb = RosenbrockDistribution(params[:μ], params[:a])
@@ -18,7 +18,7 @@ lp = logpdf(rb, samples)
 grad = gradlogpdf(rb, samples)
 
 # Save results using DrWatson
-data_dict = @dict samples lp grad params
+data_dict = @strdict samples lp grad params
 safesave(datadir("sims", savename(params, "jld2")), data_dict)
 
 # Extract x and y coordinates
@@ -26,25 +26,23 @@ x = samples[1, 1, 1, :]
 y = samples[1, 1, 2, :]
 
 # Create figure
-fig = figure(figsize=(12, 5))
+fig = figure(figsize=(11, 5))
 
 # Scatter plot
 subplot(1, 2, 1)
-scatter(x, y, alpha=0.3, s=10, c="blue")
-xlabel("x₁")
-ylabel("x₂")
+scatter(x, y, alpha=0.3, s=0.5, c="blue")
+xlabel("x1")
+ylabel("x2")
 title("Rosenbrock Distribution Samples")
 grid(true, alpha=0.3)
 
 # 2D histogram
 subplot(1, 2, 2)
-plt.hist2d(x, y, bins=50, cmap="viridis")
+plt.hist2d(x, y, bins=75, cmap="viridis", density=true)
 colorbar(label="Density")
-xlabel("x₁")
-ylabel("x₂")
+xlabel("x1")
+ylabel("x2")
 title("Sample Density")
-
-tight_layout()
 
 # Save plot using DrWatson
 wsave(plotsdir("rosenbrock_samples.png"), fig)

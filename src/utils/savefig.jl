@@ -6,4 +6,4 @@ export _wsave
 using PyPlot: Figure
 import DrWatson: _wsave
 
-_wsave(s, fig::Figure; dpi::Int=200) = fig.savefig(s, bbox_inches="tight", dpi=dpi)
+_wsave(s, fig::Figure; dpi::Int=250) = fig.savefig(s, bbox_inches="tight", dpi=dpi)

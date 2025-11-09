@@ -5,10 +5,7 @@ module Rosenbrock
 # Date: Nov 2025
 
 using DrWatson
-import Pkg; Pkg.instantiate()
-
 using Random
-Random.seed!(19)
 
 # Utilities
 include("./utils/savefig.jl")
