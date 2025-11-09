@@ -5,11 +5,27 @@ A Julia implementation of the 2D Rosenbrock distribution for testing sampling al
 Based on [Hoffman & Ma (2019)](https://arxiv.org/abs/1903.09556).
 
 ## Installation
+
+Make sure that you first have ``matplotlib`` installed in your Python environment, as it is required for some plotting functionalities.
+
+```bash
+pip install matplotlib
+```
+
+Then in Julia:
+```julia
+ENV["PYTHON"] = "/usr/bin/python3"  # Adjust path
+using Pkg
+Pkg.build("PyCall")
+# Restart Julia
+```
+
 ```julia
 ] add /path/to/Rosenbrock
 ```
 
 ## Usage
+
 ```julia
 using Rosenbrock
 
