@@ -1,9 +1,8 @@
 module Rosenbrock
 
 # Rosenbrock distribution — based on https://arxiv.org/abs/1903.09556
-# Author: Ali Siahkoohi, alisk@rice.edu
-# Date: Feb 2023
-# Copyright: Rice University
+# Author: Ali Siahkoohi, alisk@ucf.edu
+# Date: Nov 2025
 
 export RosenbrockDistribution, logpdf, gradlogpdf
 
