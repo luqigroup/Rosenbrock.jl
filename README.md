@@ -28,16 +28,21 @@ Pkg.build("PyCall")
 
 ```julia
 using Rosenbrock
+using Distributions
 
 # Create distribution
 rb = RosenbrockDistribution(0.0f0, 1.0f0)
 
 # Generate samples
-samples = rand(rb, 1000)
+samples = rand(rb, 1000)  # Returns 2×1000 matrix
 
 # Compute log-pdf and gradient
-lp = logpdf(rb, samples)
+lp = logpdf(rb, samples)  # Extends Distributions.logpdf
 grad = gradlogpdf(rb, samples)
+
+println("Sample shape: ", size(samples))  # (2, 1000)
+println("Log-pdf shape: ", size(lp))      # (1000,)
+println("Gradient shape: ", size(grad))   # (2, 1000)
 ```
 
 ## API

@@ -1,6 +1,7 @@
 using DrWatson
 @quickactivate :Rosenbrock
 
+using Distributions
 using Rosenbrock
 using PyPlot
 

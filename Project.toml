@@ -4,6 +4,7 @@ authors = ["Ali Siahkoohi <ali.siahkoohi@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
 DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"

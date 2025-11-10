@@ -1,7 +1,7 @@
-export RosenbrockDistribution, logpdf, gradlogpdf
+using Distributions
+import Distributions: logpdf, gradlogpdf
 
-import Random: rand
-import Base: rand
+export RosenbrockDistribution, gradlogpdf
 
 """
     RosenbrockDistribution{T<:AbstractFloat}(μ, a)
@@ -13,7 +13,7 @@ Parameters:
 - μ: mean parameter
 - a: scaling parameter
 """
-struct RosenbrockDistribution{T<:AbstractFloat}
+struct RosenbrockDistribution{T<:AbstractFloat} <: Distributions.ContinuousMultivariateDistribution
     μ::T
     a::T
 end
@@ -21,24 +21,30 @@ end
 # Convenience constructor
 RosenbrockDistribution(μ::Real, a::Real) = RosenbrockDistribution(promote(float(μ), float(a))...)
 
+# Implement required methods for Distribution interface
+Distributions.length(d::RosenbrockDistribution) = 2
+
 """
     rand(RB::RosenbrockDistribution, n_samples::Int)
 
 Sample from the 2D Rosenbrock distribution
 Returns a 2×n_samples matrix
 """
-function rand(RB::RosenbrockDistribution{T}, n_samples::Int) where T
-    x1 = randn(T, n_samples) / sqrt(2 * RB.a) .+ RB.μ
-    x2 = randn(T, n_samples) / sqrt(T(2)) .+ x1.^2
+function Base.rand(rng::Random.AbstractRNG, RB::RosenbrockDistribution{T}, n_samples::Int) where T
+    x1 = randn(rng, T, n_samples) / sqrt(2 * RB.a) .+ RB.μ
+    x2 = randn(rng, T, n_samples) / sqrt(T(2)) .+ x1.^2
     return vcat(x1', x2')  # 2×n_samples matrix
 end
+
+# Convenience method
+Base.rand(RB::RosenbrockDistribution, n_samples::Int) = rand(Random.GLOBAL_RNG, RB, n_samples)
 
 """
     logpdf(RB::RosenbrockDistribution, X::AbstractMatrix)
 
 Compute log-pdf for samples X (2×n_samples matrix)
 """
-function logpdf(RB::RosenbrockDistribution{T}, X::AbstractMatrix{T}) where T
+function Distributions.logpdf(RB::RosenbrockDistribution{T}, X::AbstractMatrix{T}) where T
     @assert size(X, 1) == 2 "X must have 2 rows (dimensions)"
 
     x1, x2 = X[1, :], X[2, :]
