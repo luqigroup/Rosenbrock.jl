@@ -22,8 +22,8 @@ data_dict = @strdict samples lp grad params
 safesave(datadir("sims", savename(params, "jld2")), data_dict)
 
 # Extract x and y coordinates
-x = samples[1, 1, 1, :]
-y = samples[1, 1, 2, :]
+x = samples[1, :]  # First row = x1 coordinates
+y = samples[2, :]  # Second row = x2 coordinates
 
 # Create figure
 fig = figure(figsize=(11, 5))
@@ -52,3 +52,5 @@ println("Results saved to: ", datadir("sims"))
 println("Plot saved to: ", plotsdir("rosenbrock_samples.png"))
 println("Generated $(params[:n_samples]) samples")
 println("Log-pdf range: ", extrema(lp))
+println("Sample shape: ", size(samples))  # Will print (2, 50000)
+println("Gradient shape: ", size(grad))    # Will print (2, 50000)
