@@ -51,7 +51,7 @@ function Distributions.logpdf(RB::RosenbrockDistribution{T}, X::AbstractMatrix{T
     log_pdf = -RB.a * (x1 .- RB.μ).^2 .- (x2 .- x1.^2).^2
 
     # Normalization constant
-    log_norm = log(sqrt(RB.a / π))
+    log_norm = log(sqrt(RB.a) / π)
     return log_pdf .+ log_norm
 end
 
